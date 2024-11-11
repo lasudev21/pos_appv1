@@ -38,7 +38,7 @@
                 <hr />
                 <div class="col-md-12 d-flex justify-content-end">
                     <a href="{{ route('admin.categorias.index') }}" class="btn btn-secondary">
-                        <i class="fa-solid fa-arrow-left mr-2"></i>Volver atrás
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Regresar al listado
                     </a>
                 </div>
             </div>

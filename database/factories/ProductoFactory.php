@@ -28,7 +28,7 @@ class ProductoFactory extends Factory
             'precio_compra' => $this->faker->randomFloat(2, 20, 600),
             'precio_venta' => $this->faker->randomFloat(2, 10, 500),
             'fecha_ingreso' => $this->faker->date(),
-            'categoria_id' => 1,
+            'categoria_id' => 2,
             'empresa_id' => 1
         ];
     }

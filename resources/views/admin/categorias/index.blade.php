@@ -11,6 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="#">Comercial</a></li>
                     <li class="breadcrumb-item active">Categorías</li>
                 </ol>
             </div>
@@ -70,6 +71,7 @@
                                                     event.preventDefault();
                                                     Swal.fire({
                                                         title: "¿Desea eliminar este registro?",
+                                                        text: "Al eliminar una categoria se eliminarán los productos asociadas a ella, si está seguro presione ELIMINAR, de lo contrario presione CANCELAR",
                                                         showCancelButton: true,
                                                         confirmButtonText: "Eliminar",
                                                         confirmButtonColor: '#a5161d'

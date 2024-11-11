@@ -10,7 +10,8 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.categorias.index') }}">Categorías</a></li>
+                    <li class="breadcrumb-item"><a href="#">Comercial</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.productos.index') }}">Productos</a></li>
                     <li class="breadcrumb-item active">Visualizar</li>
                 </ol>
             </div>
@@ -123,7 +124,7 @@
                 <hr />
                 <div class="col-md-12 d-flex justify-content-end">
                     <a href="{{ route('admin.productos.index') }}" class="btn btn-secondary mr-2">
-                        <i class="fa-solid fa-arrow-left mr-2"></i> Volver atrás
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Regresar al listado
                     </a>
                 </div>
             </form>

@@ -6,6 +6,19 @@
 @section('adminlte_css')
     @stack('css')
     @yield('css')
+    <style>
+        .select2-container .select2-selection--single {
+            height: 38px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 38px;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 20px;
+        }
+    </style>
 @stop
 
 @section('classes_body', $layoutHelper->makeBodyClasses())

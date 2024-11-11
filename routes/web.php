@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CompraController;
+use App\Http\Controllers\DetalleCompraController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TempCompraController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -65,7 +68,7 @@ Route::get('/admin/productos/{id}/edit', [ProductoController::class, 'edit'])->n
 Route::post('/admin/productos/{id}', [ProductoController::class, 'update'])->name('admin.productos.update')->middleware('auth');
 Route::delete('/admin/productos/{id}', [ProductoController::class, 'destroy'])->name('admin.productos.destroy')->middleware('auth');
 
-//PROVEEDOR
+//PROVEEDORES
 Route::get('/admin/proveedores', [ProveedorController::class, 'index'])->name('admin.proveedores.index')->middleware('auth');
 Route::get('/admin/proveedores/create', [ProveedorController::class, 'create'])->name('admin.proveedores.create')->middleware('auth');
 Route::post('/admin/proveedores/store', [ProveedorController::class, 'store'])->name('admin.proveedores.store')->middleware('auth');
@@ -73,6 +76,23 @@ Route::get('/admin/proveedores/{id}', [ProveedorController::class, 'show'])->nam
 Route::get('/admin/proveedores/{id}/edit', [ProveedorController::class, 'edit'])->name('admin.proveedores.edit')->middleware('auth');
 Route::post('/admin/proveedores/{id}', [ProveedorController::class, 'update'])->name('admin.proveedores.update')->middleware('auth');
 Route::delete('/admin/proveedores/{id}', [ProveedorController::class, 'destroy'])->name('admin.proveedores.destroy')->middleware('auth');
+
+//COMPRAS
+Route::get('/admin/compras', [CompraController::class, 'index'])->name('admin.compras.index')->middleware('auth');
+Route::get('/admin/compras/create', [CompraController::class, 'create'])->name('admin.compras.create')->middleware('auth');
+Route::post('/admin/compras/store', [CompraController::class, 'store'])->name('admin.compras.store')->middleware('auth');
+Route::get('/admin/compras/{id}', [CompraController::class, 'show'])->name('admin.compras.show')->middleware('auth');
+Route::get('/admin/compras/{id}/edit', [CompraController::class, 'edit'])->name('admin.compras.edit')->middleware('auth');
+Route::post('/admin/compras/{id}', [CompraController::class, 'update'])->name('admin.compras.update')->middleware('auth');
+Route::delete('/admin/compras/{id}', [CompraController::class, 'destroy'])->name('admin.compras.destroy')->middleware('auth');
+
+//TMP COMPRAS
+Route::post('/admin/compras/create/tmp', [TempCompraController::class, 'tmp_compras'])->name('admin.compras.tmp_compras')->middleware('auth');
+Route::delete('/admin/compras/create/temp/{id}', [TempCompraController::class, 'destroy'])->name('admin.compras.destroy.tmp_compras')->middleware('auth');
+
+//DETALLE COMPRA
+Route::post('/admin/detalleCompra/store', [DetalleCompraController::class, 'store'])->name('admin.detalleCompra.store')->middleware('auth');
+Route::delete('/admin/detalleCompra/{id}', [DetalleCompraController::class, 'destroy'])->name('admin.detalleCompra.destroy')->middleware('auth');
 
 
 Route::get('/crear-empresa', [EmpresaController::class, 'create'])->name('admin.empresas.create');
