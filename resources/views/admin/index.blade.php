@@ -13,7 +13,6 @@
                 <div class="small-box bg-info">
                     <div class="inner">
                         <h3>{{ $roles }}</h3>
-
                         <p>Roles</p>
                     </div>
                     <div class="icon">
@@ -25,10 +24,9 @@
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box bg-success">
+                <div class="small-box bg-primary">
                     <div class="inner">
                         <h3>{{ $usuarios }}</h3>
-
                         <p>Usuarios</p>
                     </div>
                     <div class="icon">
@@ -40,10 +38,9 @@
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box bg-primary">
+                <div class="small-box bg-success">
                     <div class="inner">
                         <h3>{{ $categorias }}</h3>
-
                         <p>Categorias</p>
                     </div>
                     <div class="icon">
@@ -55,7 +52,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box bg-danger">
+                <div class="small-box bg-warning">
                     <div class="inner">
                         <h3>{{ $productos }}</h3>
                         <p>Productos</p>
@@ -71,10 +68,9 @@
         </div>
         <div class="row">
             <div class="col-lg-3 col-6">
-                <div class="small-box bg-success">
+                <div class="small-box bg-danger">
                     <div class="inner">
                         <h3>{{ $proveedores }}</h3>
-
                         <p>Proveedores</p>
                     </div>
                     <div class="icon">
@@ -86,14 +82,13 @@
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box bg-primary">
+                <div class="small-box bg-secondary">
                     <div class="inner">
-                        <h3>{{ $categorias }}</h3>
-
-                        <p>Categorias</p>
+                        <h3>{{ $compras }}</h3>
+                        <p>Compras</p>
                     </div>
                     <div class="icon">
-                        <i class="fa-solid fa-tags"></i>
+                        <i class="fa-solid fa-money-bill-trend-up"></i>
                     </div>
                     <a href="{{ route('admin.categorias.index') }}" class="small-box-footer">
                         Ver más <i class="fas fa-arrow-circle-right"></i>
@@ -103,12 +98,11 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{ $roles }}</h3>
-
-                        <p>Roles</p>
+                        <h3>{{ $clientes }}</h3>
+                        <p>Clientes</p>
                     </div>
                     <div class="icon">
-                        <i class="fa-solid fa-user-check"></i>
+                        <i class="fa-solid fa-people-carry-box"></i>
                     </div>
                     <a href="{{ route('admin.roles.index') }}" class="small-box-footer">
                         Ver más <i class="fas fa-arrow-circle-right"></i>
@@ -126,6 +120,5 @@
 
 @section('js')
     <script>
-        console.log("Hi, I'm using the Laravel-AdminLTE package!");
     </script>
 @stop

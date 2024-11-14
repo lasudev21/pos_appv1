@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
+use App\Models\Cliente;
+use App\Models\Compra;
 use App\Models\Empresa;
 use App\Models\Producto;
 use App\Models\Proveedor;
@@ -23,6 +25,8 @@ class AdminController extends Controller
         $categorias = Categoria::where('empresa_id', $empresa_id)->count();
         $productos = Producto::where('empresa_id', $empresa_id)->count();
         $proveedores = Proveedor::where('empresa_id', $empresa_id)->count();
-        return view('admin.index', compact('empresa', 'roles', 'usuarios', 'categorias', 'productos', 'proveedores'));
+        $compras = Compra::where('empresa_id', $empresa_id)->count();
+        $clientes = Cliente::where('empresa_id', $empresa_id)->count();
+        return view('admin.index', compact('empresa', 'roles', 'usuarios', 'categorias', 'productos', 'proveedores', 'compras', 'clientes'));
     }
 }

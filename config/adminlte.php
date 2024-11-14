@@ -383,6 +383,16 @@ return [
                     'url' => '/admin/compras',
                     'icon' => 'fa-solid fa-money-bill-trend-up',
                 ],
+                [
+                    'text' => 'Clientes',
+                    'url' => '/admin/clientes',
+                    'icon' => 'fa-solid fa-people-carry-box',
+                ],
+                [
+                    'text' => 'Ventas',
+                    'url' => '/admin/ventas',
+                    'icon' => 'fa-solid fa-cart-shopping',
+                ],
             ],
         ],
         // ['header' => 'labels'],

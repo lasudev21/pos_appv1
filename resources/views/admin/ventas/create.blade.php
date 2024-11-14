@@ -11,8 +11,8 @@
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Inicio</a></li>
                     <li class="breadcrumb-item"><a href="#">Comercial</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.compras.index') }}">Compras</a></li>
-                    <li class="breadcrumb-item active">Actualizar</li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.ventas.index') }}">Ventas</a></li>
+                    <li class="breadcrumb-item active">Crear</li>
                 </ol>
             </div>
         </div>
@@ -21,9 +21,12 @@
 
 @section('content')
     <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h5>Crear nueva vemta</h5>
+        </div>
+        <!-- /.card-header -->
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.compras.update', $compra->id) }}" id="formCompra"
-                enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.ventas.store') }}" id="formCompra" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-8">
@@ -59,6 +62,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <table id="tableDetalles" class="table table-striped table-hover table-sm">
@@ -66,36 +70,34 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Codigo</th>
-                                            <th scope="col">Producto</th>
                                             <th scope="col">Cantidad</th>
+                                            <th scope="col">Producto</th>
                                             <th scope="col">Valor</th>
                                             <th scope="col">Total</th>
-                                            <th scope="col" class="text-center">Acciones</th>
+                                            <th scope="col" style="text-align: center">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $contador = 1; ?>
-                                        <?php $cantidad = 0; ?>
-                                        <?php $compras = 0; ?>
-                                        @foreach ($compra->detalles as $comp)
+                                        <?php $contador = 1;
+                                        $cantidad = 0;
+                                        $valor_total = 0; ?>
+                                        @foreach ($tem_ventas as $temp)
                                             <tr>
-                                                <th scope="row">
-                                                    {{ $contador++ }}</th>
-                                                </td>
-                                                <td>{{ $comp->producto->codigo }}</td>
-                                                <td>{{ $comp->producto->nombre }}</td>
-                                                <td>{{ $comp->cantidad }}</td>
-                                                <td>{{ $comp->precio_compra }}</td>
-                                                <td>{{ $costo = $comp->producto->precio_compra * $comp->cantidad }}</td>
-                                                <td class="text-center">
+                                                <td>{{ $contador++ }}</td>
+                                                <td>{{ $temp->producto->codigo }}</td>
+                                                <td>{{ $temp->producto->nombre }}</td>
+                                                <td>{{ $temp->cantidad }}</td>
+                                                <td>{{ $temp->producto->precio_venta }}</td>
+                                                <td>{{ $costo = $temp->producto->precio_venta * $temp->cantidad }}</td>
+                                                <td>
                                                     <button type="button" class="btn btn-danger btn-sm delete-btn"
-                                                        data-id="{{ $comp->id }}">
+                                                        data-id="{{ $temp->id }}">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </td>
                                                 @php
-                                                    $cantidad += $comp->cantidad;
-                                                    $compras += $costo;
+                                                    $cantidad += $temp->cantidad;
+                                                    $valor_total += $costo;
                                                 @endphp
                                             </tr>
                                         @endforeach
@@ -104,8 +106,8 @@
                                         <tr>
                                             <td colspan="2"><b>Total cantidad</b></td>
                                             <td><b>{{ $cantidad }}</b></td>
-                                            <td colspan="2"><b>Total compra</b></td>
-                                            <td><b>{{ $compras }}</b></td>
+                                            <td colspan="2"><b>Total venta</b></td>
+                                            <td><b>{{ $valor_total }}</b></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -116,41 +118,30 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="proveedor_id">Proveedor</label>
-                                    <select id="proveedor_id" name="proveedor_id" class="form-control" style="width: 100%;">
-                                        <option value="" selected disabled>Seleccione un proveedor...</option>
+                                    <label for="cliente_id">Cliente<span class="text-red">*</span></label>
+                                    <select id="cliente_id" name="cliente_id" class="form-control" style="width: 100%;">
+                                        <option value="" selected disabled>Seleccione un cliente...</option>
                                     </select>
-                                    @error('proveedor_id')
-                                        <small style="color: red">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="comprobante">Documento</label>
-                                    <input type="text" name="comprobante" id="comprobante"
-                                        value="{{ $compra->comprobante }}" class="form-control" />
-                                    @error('comprobante')
+                                    @error('cliente_id')
                                         <small style="color: red">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="fecha">Fecha</label>
-                                    <input type="date" name="fecha" id="fecha" value="{{ $compra->fecha }}"
-                                        class="form-control" />
+                                    <label for="fecha">Fecha<span class="text-red">*</span></label>
+                                    <input type="date" id="fecha" name="fecha" value="{{ old('fecha') }}"
+                                        class="form-control">
                                     @error('fecha')
                                         <small style="color: red">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="precio_total">Precio Total<span class="text-red">*</span></label>
                                     <input type="number" id="precio_total" name="precio_total"
-                                        value="{{ $compras }}" class="form-control text-center"
+                                        value="{{ $valor_total }}" class="form-control text-center"
                                         style="background-color: rgba(233, 231, 16, 0.15);" readonly>
                                     @error('precio_total')
                                         <small style="color: red">{{ $message }}</small>
@@ -159,20 +150,19 @@
                             </div>
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary btn-block">
-                                    <i class="fa-solid fa-floppy-disk mr-2"></i>Actualizar
+                                    <i class="fa-solid fa-floppy-disk mr-2"></i>Guardar
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <hr />
+                <div class="d-flex justify-content-end">
+                    <a href="{{ route('admin.ventas.index') }}" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Regresar al listado
+                    </a>
+                </div>
             </form>
-
-            <hr />
-            <div class="col-md-12 d-flex justify-content-end">
-                <a href="{{ route('admin.compras.index') }}" class="btn btn-secondary">
-                    <i class="fa-solid fa-arrow-left"></i> Regresar al listado
-                </a>
-            </div>
         </div>
     </div>
 
@@ -252,23 +242,20 @@
 @section('js')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var proveedores = {!! $proveedores !!};
-
-            var id = {{ $compra->proveedor_id }}
-
-            console.log(id)
-            $('#proveedor_id').select2({
-                placeholder: "Seleccione un proveedor...",
+            var clientes = {!! $clientes !!};
+            var id = {{ old('cliente_id') }}
+            $('#cliente_id').select2({
+                placeholder: "Seleccione un cliente...",
                 allowClear: true,
                 width: '100%',
-                data: proveedores.map(proveedor => ({
-                    id: proveedor.id,
-                    text: `${proveedor.empresa} - (${proveedor.nombre_contacto})`
+                data: clientes.map(cliente => ({
+                    id: cliente.id,
+                    text: `${cliente.nombre} - (${cliente.identificacion})`
                 }))
             });
 
             if (id) {
-                $('#proveedor_id').val(id).trigger('change');
+                $('#cliente_id').val(id).trigger('change');
             }
 
             $('#codigo').focus();
@@ -307,12 +294,11 @@
 
             function AgregarProductoLista(codigo) {
                 $.ajax({
-                    url: "{{ route('admin.detalleCompra.store') }}",
+                    url: "{{ route('admin.ventas.tmp_ventas') }}",
                     method: "POST",
                     data: {
                         _token: "{{ csrf_token() }}",
                         codigo: codigo,
-                        compra_id: {{ $compra->id }},
                         cantidad: $('#cantidad').val()
                     },
                     success: function(response) {
@@ -340,7 +326,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: `{{ url('/admin/detalleCompra/${id}') }}`,
+                            url: `{{ url('/admin/ventas/create/temp/${id}') }}`,
                             method: "POST",
                             data: {
                                 _token: "{{ csrf_token() }}",
@@ -349,7 +335,6 @@
                             success: function(response) {
                                 if (response.success) {
                                     MensajeConfirmacion('success', response.message);
-                                    console.log(response.data)
                                     actualizarTablaDetalles(response.data);
                                 }
                             },
@@ -383,38 +368,37 @@
                 var contador = 1;
 
                 tem_compras.forEach(function(temp) {
-                    var costo = temp.producto.precio_compra * temp.cantidad;
+                    var costo = temp.producto.precio_venta * temp.cantidad;
                     totalCantidad += temp.cantidad;
                     totalCompra += costo;
 
                     var row = `<tr>
-                            <td>${contador++}</td>
-                            <td>${temp.producto.codigo}</td>
-                            <td>${temp.producto.nombre}</td>
-                            <td>${temp.cantidad}</td>
-                            <td>${temp.producto.precio_compra}</td>
-                            <td>${costo.toFixed(2)}</td>
-                            <td class="text-center"><button type="button" class="btn btn-danger btn-sm delete-btn" data-id="${temp.id}"><i class="fa-solid fa-trash-can"></i></button></td>
-                        </tr>`;
+                                <td>${contador++}</td>
+                                <td>${temp.producto.codigo}</td>
+                                <td>${temp.producto.nombre}</td>
+                                <td>${temp.cantidad}</td>
+                                <td>${temp.producto.precio_venta}</td>
+                                <td>${costo.toFixed(2)}</td>
+                                <td><button type="button" class="btn btn-danger btn-sm delete-btn" data-id="${temp.id}"><i class="fa-solid fa-trash-can"></i></button></td>
+                            </tr>`;
 
                     tbody.append(row);
                 });
 
                 // Actualizar el pie de la tabla con los totales
                 $('#tableDetalles tfoot').html(`<tr>
-                                                <td colspan="2"><b>Total cantidad</b></td>
-                                                <td><b>${totalCantidad}</b></td>
-                                                <td colspan="2"><b>Total compra</b></td>
-                                                <td><b>${totalCompra.toFixed(2)}</b></td>
-                                            </tr>`);
-
+                                                    <td colspan="2"><b>Total cantidad</b></td>
+                                                    <td><b>${totalCantidad}</b></td>
+                                                    <td colspan="2"><b>Total venta</b></td>
+                                                    <td><b>${totalCompra.toFixed(2)}</b></td>
+                                                </tr>`);
+                console.log(totalCompra)
                 $('#precio_total').val(totalCompra.toFixed(2));
 
                 $('#tableDetalles tbody').on('click', '.delete-btn', function() {
                     var id = $(this).data('id');
                     EliminarProductoLista(id);
                 });
-
             }
         });
     </script>

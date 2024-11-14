@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TempCompra;
+use App\Models\TempVenta;
 use App\Http\Controllers\Controller;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TempCompraController extends Controller
+class TempVentaController extends Controller
 {
-    public function tmp_compras(Request $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function tmp_ventas(Request $request)
     {
         $producto = Producto::where([['codigo', $request->codigo], ['empresa_id', Auth::user()->empresa_id]])->first();
 
         if ($producto) {
-            $existe_temp_compra = TempCompra::where([['producto_id', $producto->id], ['session_id', session()->getId()]])->first();
-            $tmpCompra = new TempCompra();
+            $existe_temp_compra = TempVenta::where([['producto_id', $producto->id], ['session_id', session()->getId()]])->first();
+            $tmpCompra = new TempVenta();
 
             if ($existe_temp_compra) {
                 $tmpCompra = $existe_temp_compra;
@@ -28,9 +31,9 @@ class TempCompraController extends Controller
             }
 
             $tmpCompra->save();
-            $temp_compra = TempCompra::with('producto')->where('session_id', session()->getId())->get();
+            $temp_venta = TempVenta::with('producto')->where('session_id', session()->getId())->get();
 
-            return response()->json(['success' => true, 'message' => 'Producto incorporado', 'data' => $temp_compra]);
+            return response()->json(['success' => true, 'message' => 'Producto incorporado', 'data' => $temp_venta]);
         } else
             return response()->json(['success' => false, 'message' => 'Producto no encontrado']);
     }
@@ -40,8 +43,8 @@ class TempCompraController extends Controller
      */
     public function destroy($id)
     {
-        TempCompra::destroy($id);
-        $temp_compra = TempCompra::with('producto')->where('session_id', session()->getId())->get();
-        return response()->json(['success' => true, 'message' => 'Producto eliminado', 'data' => $temp_compra]);
+        TempVenta::destroy($id);
+        $temp_venta = TempVenta::with('producto')->where('session_id', session()->getId())->get();
+        return response()->json(['success' => true, 'message' => 'Producto eliminado', 'data' => $temp_venta]);
     }
 }
